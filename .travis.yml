@@ -1,18 +1,25 @@
 language: node_js
-
 node_js:
-  - "8"
-addons:
-    code_climate:
-        repo_token:
-           secure: cdf37e9d35b3cc6607baeb650372d9fccd568734dd4337a0f4d7989f81c32661
-script: ./node_modules/.bin/nyc --reporter=lcov ./tests/backend/specs/api--require @babel/register
-before_script:
-  - npm install codeclimate-test-reporter nyc -g
-after_script:
-  - codeclimate-test-reporter < ./coverage/lcov.info
+  - "10.13"
 
-notifications:
-  # Notify build results through email
-  email:
-  - geminientan@hotmail.com 
+env:
+  global:
+  # Code Climate Reporter gotten from code climate
+    - CC_TEST_REPORTER_ID=cdf37e9d35b3cc6607baeb650372d9fccd568734dd4337a0f4d7989f81c32661
+
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:  
+  - npm install
+  - npm run test
+
+after_script:  
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+after_success:
+  - npm run coverage
+  - npm run coveralls
