@@ -1,16 +1,15 @@
 language: node_js
 
 node_js:
-  - 'stable'
-  
-install: npm install
-
-services:
-  - postgresql
+  - "5.5.0"
+addons:
+    code_climate:
+        repo_token: <cdf37e9d35b3cc6607baeb650372d9fccd568734dd4337a0f4d7989f81c32661>
+script: istanbul cover node_modules/mocha/bin/_mocha -- -R spec
 before_script:
-  - psql -c 'create database test_db;' -U postgres
-script: npm test
-after_success: npm run coverage
+  - npm install codeclimate-test-reporter istanbul -g
+after_script:
+  - codeclimate-test-reporter < ./coverage/lcov.info
 
 notifications:
   # Notify build results through email
