@@ -1,13 +1,14 @@
 language: node_js
 
 node_js:
-  - "5.5.0"
+  - "8"
 addons:
     code_climate:
-        repo_token: <cdf37e9d35b3cc6607baeb650372d9fccd568734dd4337a0f4d7989f81c32661>
-script: istanbul cover node_modules/mocha/bin/_mocha -- -R spec
+        repo_token:
+           secure: cdf37e9d35b3cc6607baeb650372d9fccd568734dd4337a0f4d7989f81c32661
+script: ./node_modules/.bin/nyc --reporter=lcov ./node_modules/mocha/bin/mocha --require @babel/register
 before_script:
-  - npm install codeclimate-test-reporter istanbul -g
+  - npm install codeclimate-test-reporter nyc -g
 after_script:
   - codeclimate-test-reporter < ./coverage/lcov.info
 
