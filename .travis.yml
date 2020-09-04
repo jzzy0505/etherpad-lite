@@ -6,7 +6,7 @@ addons:
     code_climate:
         repo_token:
            secure: cdf37e9d35b3cc6607baeb650372d9fccd568734dd4337a0f4d7989f81c32661
-script: ./node_modules/.bin/nyc --reporter=lcov ./node_modules/mocha/bin/mocha --require @babel/register
+script: ./node_modules/.bin/nyc --reporter=lcov ./tests/backend/specs/api--require @babel/register
 before_script:
   - npm install codeclimate-test-reporter nyc -g
 after_script:
