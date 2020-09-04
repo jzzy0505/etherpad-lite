@@ -55,6 +55,6 @@ env:
 
 
 notifications:
-  # Notify build results through email
+  # Notify build results through email.
   email:
   - wonweicheng@gmail.com 
