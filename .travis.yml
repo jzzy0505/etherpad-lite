@@ -42,4 +42,4 @@ jobs:
 notifications:
   # notify build and test results through email
   email:
-  - wonweicheng@gmail.com 
+  - geminientan@hotmail.com 
